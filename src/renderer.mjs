@@ -6,13 +6,13 @@ let count = 0
     count += 1
     countNode.innerHTML = `the count is ${count}`
   }
-  const updateButton = () => {
+  const updateButton = async () => {
     const num = Math.random()
     console.log('num', num)
     button.innerHTML = `click! ${num}`
   }
   button.addEventListener('click', updateButton)
-  setInterval(() => {
+  setInterval(async () => {
     update()
   }, 100)
   const res = await window.api.blockEverything()
