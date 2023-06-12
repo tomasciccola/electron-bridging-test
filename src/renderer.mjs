@@ -1,22 +1,12 @@
-async function main(){
-let count = 0
-  const countNode = document.querySelector('p')
-  const button = document.querySelector('button')
-  const update = () => {
-    count += 1
-    countNode.innerHTML = `the count is ${count}`
+window.onmessage =
+/**
+ * @params {Object} obj
+ * @params {[MessagePort]} obj.ports
+*/
+({ ports }) => {
+  const [ renderPort, workerPort ] = ports
+  workerPort.postMessage('hi from renderer!')
+  workerPort.onMessage = (e) => {
+    console.log('message from worker', e.data)
   }
-  const updateButton = async () => {
-    const num = Math.random()
-    console.log('num', num)
-    button.innerHTML = `click! ${num}`
-  }
-  button.addEventListener('click', updateButton)
-  setInterval(async () => {
-    update()
-  }, 100)
-  const res = await window.api.blockEverything()
-  console.log('res', res)
-
 }
-window.onload = main

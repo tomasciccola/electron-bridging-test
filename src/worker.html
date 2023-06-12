@@ -1,0 +1,18 @@
+<h1> worker </h1>
+<script>
+window.onmessage = (e) => {
+  if(event.source === window && event.data === 'port'){
+    const [port] = event.ports
+
+    port.onmessage = ({data}) => {
+      console.log('msg from render', data)
+      const sleep = (ms) => {
+        var stop = new Date().getTime()
+        while(new Date().getTime() < stop + ms){}
+      }
+      sleep(5000)
+      port.postMessage(data * 2)
+    }
+  }
+}
+</script>

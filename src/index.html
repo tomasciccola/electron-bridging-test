@@ -1,23 +1,19 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Electron</title>
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'"
-    />
-
-    <link href="./style.css" type="text/css" rel="stylesheet" />
-  </head>
-
-  <body>
-    <div class="container">
-      <h1 class="hero-text">HI!</h2>
-      <p> </p>
-      <button>click!</button>
-    </div>
-    <script type="module" src="./renderer.mjs" defer></script>
-  </body>
-</html>
+<h1> render </h1>
+<button>click!</button>
+<script>
+window.onmessage = (e) => {
+  if(event.source === window && event.data === 'port'){
+    const [port] = event.ports
+    port.postMessage(42)
+    port.onmessage = ({data}) => {
+      console.log('msg from worker', data)
+    }
+  }
+}
+const button = document.querySelector('button')
+const update = () => {
+  const n = Math.random()
+  button.innerHTML = `click! ${n}`
+}
+button.addEventListener('click', update)
+</script>
