@@ -4,9 +4,7 @@ const { contextBridge, ipcRenderer } = require('electron')
 const { electronAPI } = require('@electron-toolkit/preload')
 
 // Custom APIs for renderer
-const api = {blockEverything: () => {
-  return ipcRenderer.invoke('blockEverything')
-}}
+const api = {blockEverything: () => ipcRenderer.invoke('blockEverything')}
 
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise

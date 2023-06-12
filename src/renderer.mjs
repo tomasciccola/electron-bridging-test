@@ -1,17 +1,22 @@
 async function main(){
 let count = 0
-  let countNode = document.querySelector('p')
+  const countNode = document.querySelector('p')
+  const button = document.querySelector('button')
   const update = () => {
     count += 1
     countNode.innerHTML = `the count is ${count}`
   }
-  setInterval(() =>{
+  const updateButton = () => {
+    const num = Math.random()
+    console.log('num', num)
+    button.innerHTML = `click! ${num}`
+  }
+  button.addEventListener('click', updateButton)
+  setInterval(() => {
     update()
   }, 100)
-
-  setTimeout(async () => {
   const res = await window.api.blockEverything()
   console.log('res', res)
-  })
+
 }
 window.onload = main
