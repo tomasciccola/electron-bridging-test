@@ -1,13 +1,16 @@
 <h1> render </h1>
 <button>click!</button>
-<script>
+<script type="module">
+console.log('hi from render')
 window.onmessage = (e) => {
   if(event.source === window && event.data === 'port'){
-    const [port] = event.ports
-    port.postMessage(42)
-    port.onmessage = ({data}) => {
-      console.log('msg from worker', data)
-    }
+    const [msgChannel] = event.ports
+     const api = window.createClient(msgChannel)
+     msgChannel.start()
+     // msgChannel.postMessage(42)
+     // msgChannel.onmessage = ({data}) => {
+       // console.log('msg from worker', data)
+     // }
   }
 }
 const button = document.querySelector('button')
